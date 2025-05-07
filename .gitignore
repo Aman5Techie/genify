@@ -2,6 +2,7 @@ backend/venv/
 backend/__pycache__/
 backend/generate_video/media
 backend/generate_video/videos
+backend/BACKEND_LOGGER.log
 
 **/.env
 **/__pycache__/
