@@ -5,9 +5,11 @@ from dotenv import load_dotenv
 from flask import Flask
 from app.controllers.generate_code import generate_code_bp
 from app.controllers.render_video import render_video_bp
+from logger.logging import custom_logger
 
 load_dotenv()
 def create_app():
+    custom_logger.info("Creating Flask app...")
     app = Flask(__name__)
     app.config.from_object("app.config.Config")
 
