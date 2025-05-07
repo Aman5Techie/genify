@@ -7,3 +7,4 @@ redis==6.0.0
 ai21==3.2.0
 dotenv==0.9.9
 azure-storage-blob==12.25.1
+flask-cors==5.0.1
