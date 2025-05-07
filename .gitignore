@@ -1,0 +1,7 @@
+backend/venv/
+backend/__pycache__/
+backend/generate_video/media
+backend/generate_video/videos
+
+**/.env
+**/__pycache__/
