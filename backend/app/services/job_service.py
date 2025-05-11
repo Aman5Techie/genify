@@ -1,5 +1,6 @@
 # /backend/app/services/job_service.py
 
+import threading
 import uuid
 import os
 import time
@@ -16,8 +17,7 @@ def create_job(prompt, request_id):
     
     custom_logger.info(f"Job created with ID: {job_id} -> request_id: {request_id}")
     
-    # Start the background job
-    generate_job_code(job_id, prompt) # Make this async in the future
+    threading.Thread(target=generate_job_code, args=(job_id,prompt), daemon=True).start()
     
     return job_id
 
@@ -53,7 +53,7 @@ def generate_job_code(job_id, prompt):
 
         custom_logger.info(f"Video URL: {azure_video_url}")
         
-        job_storage[job_id]["status"] = "completed"
+        job_storage[job_id]["status"] = "done"
         job_storage[job_id]["video_url"] = azure_video_url
         
         custom_logger.info(f"Job {job_id} completed successfully")
