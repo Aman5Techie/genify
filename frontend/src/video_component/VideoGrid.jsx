@@ -95,7 +95,7 @@ const SortableVideoItem = ({
 function VideoGrid({ onAddVideo }) {
   const { videos, setSelectedVideoIndex, reorderVideos, selectedVideoIndex } = useVideoContext();
 
-  console.log("VideoGrid videos:", videos);
+  // console.log("VideoGrid videos:", videos);
   
   // Set up sensors for drag detection
   const sensors = useSensors(
