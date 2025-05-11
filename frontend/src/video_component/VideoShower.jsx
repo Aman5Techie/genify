@@ -13,7 +13,7 @@ import VideoWorkspace from "./VideoWorkSpace";
 const VideoShower = ({videoUrl}) => {
   
   return (
-    <VideoProvider intital_videos={[videoUrl]} >
+    <VideoProvider initial_videos={[videoUrl]} >
         <VideoWorkspace/>
     </VideoProvider>
   );

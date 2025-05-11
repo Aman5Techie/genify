@@ -18,8 +18,8 @@ const newVideo= {
     title: 'Big Buck Bunny 3',
 }
 
-export function VideoProvider({ children, intital_videos }) {
-  const [videos, setVideos] = useState(intital_videos);
+export function VideoProvider({ children, initial_videos }) {
+  const [videos, setVideos] = useState(initial_videos);
   const [selectedVideoIndex, setSelectedVideoIndex] = useState(0);
   const [combinedVideoUrl, setCombinedVideoUrl] = useState(null);
   const [pendingGeneration, setPendingGeneration] = useState(null);
