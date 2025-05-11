@@ -95,7 +95,9 @@ function PromptForm({ onSubmit, isLoading, jobId }) {
       </div>
       
       <div className="mt-8 text-center text-gray-500 text-sm">
-        <p>Example prompts: "A futuristic city at sunset" • "Aerial view of mountains" • "Underwater coral reef exploration"</p>
+        <p>Example prompts</p>
+        <p> "Explain pythagoras theorem" • "Create me a flow diagram for Redis Cache" • "Generate video on HandShake protocol"</p>
+      
       </div>
       
       {isLoading && jobId && (
