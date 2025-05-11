@@ -5,8 +5,9 @@ import PromptForm from './PromptForm';
 import VideoDisplay from './VideoDisplay';
 import ErrorDisplay from './ErrorDisplay';
 import VideoShower from '../video_component/VideoShower';
+
+
 function VideoGenerator() {
-  const [prompt, setPrompt] = useState('');
   const [jobId, setJobId] = useState(null);
   const [videoUrl, setVideoUrl] = useState('');
   
@@ -14,7 +15,6 @@ function VideoGenerator() {
   const submitMutation = useMutation({
     mutationFn: submitPrompt,
     onSuccess: (data) => {
-      console.log("Prompt submitted successfully, job ID:", data.job_id);
       setJobId(data.job_id);
     },
   });
@@ -51,13 +51,12 @@ function VideoGenerator() {
   }, [statusQuery.data]);
 
   const handleSubmit = (promptText) => {
-    setPrompt(promptText);
+
     submitMutation.mutate(promptText);
   };
 
   const resetForm = () => {
     setVideoUrl('');
-    setPrompt('');
     setJobId(null);
   };
 
@@ -90,9 +89,9 @@ function VideoGenerator() {
         <ErrorDisplay error={error} onReset={resetForm} />
       ) : (
       <VideoShower videoUrl={{
-        id: 'video1',
+        id: 'video_1',
         url: videoUrl,
-        title: 'intial video',
+        title: 'Video 1',
       }}/>
       )}
 

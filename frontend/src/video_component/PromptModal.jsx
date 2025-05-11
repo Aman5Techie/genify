@@ -1,14 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useVideoContext } from '../context/VideoContext';
 import { X, Loader2 } from 'lucide-react';
+import { FINAL_PROMPT } from "../services/asset_list";
 
 function PromptModal({ isOpen, onClose }) {
-  const [prompt, setPrompt] = useState('');
+  const [prompt, setPrompt] = useState(FINAL_PROMPT);
   const [isGenerating, setIsGenerating] = useState(false);
   const { generateVideo, pendingGeneration } = useVideoContext();
+  const textareaRef = useRef(null);
 
   // Monitor pending generation and close modal when complete
-
   console.log('Pendingxox generation:', pendingGeneration);
   
   useEffect(() => {
@@ -19,6 +20,22 @@ function PromptModal({ isOpen, onClose }) {
       onClose(); // Close the modal
     }
   }, [pendingGeneration, isGenerating, onClose]);
+
+  // Auto-resize textarea based on content
+  useEffect(() => {
+    if (textareaRef.current) {
+      // Reset height to auto to get the correct scrollHeight
+      textareaRef.current.style.height = 'auto';
+      
+      // Set new height based on scrollHeight, up to the max height
+      const newHeight = Math.min(textareaRef.current.scrollHeight, 300); // 300px max height
+      textareaRef.current.style.height = `${newHeight}px`;
+    }
+  }, [prompt]);
+
+  const handlePromptChange = (e) => {
+    setPrompt(e.target.value);
+  };
 
   if (!isOpen) return null;
 
@@ -59,40 +76,45 @@ function PromptModal({ isOpen, onClose }) {
         </div>
       ) : (
         <div 
-          className="bg-gray-800 rounded-lg shadow-xl w-full max-w-md border border-gray-700 overflow-hidden"
+          className="bg-gray-800 rounded-lg shadow-xl w-full max-w-2xl border border-gray-700 overflow-hidden"
           onClick={(e) => e.stopPropagation()}
         >
-          <div className="flex justify-between items-center p-4 border-b border-gray-700">
-            <h3 className="text-xl font-semibold text-white">Generate Continuous Video</h3>
+          <div className="flex justify-between items-center p-6 border-b border-gray-700">
+            <h3 className="text-2xl font-semibold text-white">Generate Continuous Video</h3>
             <button 
               onClick={onClose}
               className="text-gray-400 hover:text-white transition-colors"
             >
-              <X size={20} />
+              <X size={24} />
             </button>
           </div>
           
-          <form onSubmit={handleSubmit} className="p-4">
-            <div className="mb-4">
-              <label htmlFor="prompt" className="block text-sm font-medium text-gray-300 mb-2">
+          <form onSubmit={handleSubmit} className="p-6">
+            <div className="mb-6">
+              <label htmlFor="prompt" className="block text-lg font-medium text-gray-300 mb-3">
                 Enter your video prompt
               </label>
               <textarea
                 id="prompt"
-                rows={4}
+                ref={textareaRef}
                 value={prompt}
-                onChange={(e) => setPrompt(e.target.value)}
-                placeholder="Describe the video you want to generate..."
-                className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                onChange={handlePromptChange}
+                placeholder="Demo only include 2 videos...."
+                className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-md text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent min-h-[120px] max-h-[300px] overflow-y-auto resize-none"
                 required
+                disabled={true}
+                style={{ height: '260px' }}
               />
+              <p className="text-sm text-gray-400 mt-2">
+                Be detailed in your description for better results.
+              </p>
             </div>
             
-            <div className="flex justify-end">
+            <div className="flex justify-end space-x-4">
               <button
                 type="button"
                 onClick={onClose}
-                className="mr-2 px-4 py-2 border border-gray-600 text-gray-300 rounded-md hover:bg-gray-700 transition-colors"
+                className="px-6 py-3 border border-gray-600 text-gray-300 rounded-md hover:bg-gray-700 transition-colors font-medium"
               >
                 Cancel
               </button>
@@ -100,13 +122,13 @@ function PromptModal({ isOpen, onClose }) {
                 type="submit"
                 disabled={!prompt.trim()}
                 className={`
-                  px-4 py-2 bg-purple-600 text-white rounded-md transition-colors
+                  px-6 py-3 bg-purple-600 text-white rounded-md transition-colors font-medium
                   ${!prompt.trim() 
                     ? 'opacity-50 cursor-not-allowed' 
                     : 'hover:bg-purple-700'}
                 `}
               >
-                Generate
+                Generate Video
               </button>
             </div>
           </form>

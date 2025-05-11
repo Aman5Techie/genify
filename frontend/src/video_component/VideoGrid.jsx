@@ -1,4 +1,3 @@
-import React from 'react';
 import { useVideoContext } from '../context/VideoContext';
 import { Plus, GripVertical, Play } from 'lucide-react';
 import {

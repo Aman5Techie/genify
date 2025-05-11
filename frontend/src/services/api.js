@@ -1,29 +1,21 @@
 // API service for video generation
 
-const BASE_URL =  'http://127.0.0.1:5000';
+import { INTIAL_VIDEO } from "./asset_list";
+
 
 export const submitPrompt = async (prompt) => {
-  const response = await fetch(`${BASE_URL}/api/submit_prompt`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ prompt }),
+   return new Promise((resolve) => {
+    setTimeout(() => {
+      const jobId = Math.floor(Math.random() * 1000); // Simulate job ID
+      resolve({job_id: jobId});
+    }, 2000);
   });
-  
-  if (!response.ok) {
-    throw new Error(`API responded with status: ${response.status}`);
-  }
-  
-  return response.json();
 };
 
 export const checkJobStatus = async (jobId) => {
-  const response = await fetch(`${BASE_URL}/api/job_status?job_id=${jobId}`);
-  
-  if (!response.ok) {
-    throw new Error(`API responded with status: ${response.status}`);
-  }
-  
-  return response.json();
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve({status : 'done', video_url: INTIAL_VIDEO});
+    }, 5000);
+  });
 };

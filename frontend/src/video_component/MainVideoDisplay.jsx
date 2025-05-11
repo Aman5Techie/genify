@@ -4,7 +4,7 @@ import { useVideoContext } from '../context/VideoContext';
 
 function MainVideoDisplay() {
   const videoRef = useRef(null);
-  const [isPlaying, setIsPlaying] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(true);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   
@@ -160,6 +160,7 @@ function MainVideoDisplay() {
             className="w-full aspect-video object-contain"
             loop={false} // Don't loop videos, let our custom handler manage it
             src={videos[localVideoIndex]?.url}
+            autoPlay={isPlaying}
             muted
           />
           

@@ -2,9 +2,12 @@ import React, { useState } from 'react';
 import VideoGrid from './VideoGrid';
 import PromptModal from './PromptModal';
 import MainVideoDisplay from './MainVideoDisplay';
+import { useVideoContext } from '../context/VideoContext';
 
 function VideoWorkspace() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const { combineAndDownload } = useVideoContext();
+
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
@@ -38,8 +41,8 @@ function VideoWorkspace() {
             
             <div className="flex justify-center mt-4">
               <button
-                onClick={() => alert('Download combined video functionality not implemented yet.')}
-                className="bg-purple-600 hover:bg-purple-700 text-white font-medium py-2 px-6 rounded-md transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-50"
+                onClick={combineAndDownload}
+                className="bg-purple-600 hover:bg-purple-700 text-white font-medium py-2 px-6 rounded-md transition-colors duration-300 cursor-pointer focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-50"
               >
                 Download Combined Video
               </button>
