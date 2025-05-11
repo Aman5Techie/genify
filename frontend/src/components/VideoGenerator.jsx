@@ -4,7 +4,7 @@ import { submitPrompt, checkJobStatus } from '../services/api';
 import PromptForm from './PromptForm';
 import VideoDisplay from './VideoDisplay';
 import ErrorDisplay from './ErrorDisplay';
-
+import VideoShower from '../video_component/VideoShower';
 function VideoGenerator() {
   const [prompt, setPrompt] = useState('');
   const [jobId, setJobId] = useState(null);
@@ -89,9 +89,16 @@ function VideoGenerator() {
       ) : error ? (
         <ErrorDisplay error={error} onReset={resetForm} />
       ) : (
-        <VideoDisplay videoUrl={videoUrl} onCreateNew={resetForm} />
+      <VideoShower videoUrl={{
+        id: 'video1',
+        url: videoUrl,
+        title: 'intial video',
+      }}/>
       )}
+
+    
     </>
+
   );
 }
 
