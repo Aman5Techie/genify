@@ -4,7 +4,7 @@ import { useVideoContext } from '../context/VideoContext';
 
 function MainVideoDisplay() {
   const videoRef = useRef(null);
-  const [isPlaying, setIsPlaying] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(true);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   
@@ -161,6 +161,7 @@ function MainVideoDisplay() {
             loop={false} // Don't loop videos, let our custom handler manage it
             src={videos[localVideoIndex]?.url}
             muted
+            autoPlay={isPlaying}
           />
           
           <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">

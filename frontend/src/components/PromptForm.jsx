@@ -1,20 +1,24 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Loader from './Loader';
 
 function PromptForm({ onSubmit, isLoading, jobId }) {
   const [prompt, setPrompt] = useState('');
   const [isTyping, setIsTyping] = useState(false);
+  const textareaRef = useRef(null);
 
   // Handle typing animation for placeholder
+
+  // Auto-resize textarea based on content
   useEffect(() => {
-    let typingTimeout;
-    if (isTyping) {
-      typingTimeout = setTimeout(() => {
-        setIsTyping(false);
-      }, 1000);
+    if (textareaRef.current) {
+      // Reset height to auto to get the correct scrollHeight
+      textareaRef.current.style.height = 'auto';
+      
+      // Set new height based on scrollHeight, up to the max height
+      const newHeight = Math.min(textareaRef.current.scrollHeight, 300); // 300px max height
+      textareaRef.current.style.height = `${newHeight}px`;
     }
-    return () => clearTimeout(typingTimeout);
-  }, [isTyping]);
+  }, [prompt]);
 
   const handlePromptChange = (e) => {
     setPrompt(e.target.value);
@@ -43,9 +47,10 @@ function PromptForm({ onSubmit, isLoading, jobId }) {
         <form onSubmit={handleSubmit} className="relative bg-gray-900 rounded-xl p-2">
           <div className="relative overflow-hidden">
             <textarea
+              ref={textareaRef}
               value={prompt}
               onChange={handlePromptChange}
-              className={`w-full bg-gray-800 backdrop-blur-md bg-opacity-80 rounded-lg p-5 pr-14 text-white resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 min-h-[120px] transition-all ${isTyping ? 'border-blue-500' : 'border-transparent'} border-2`}
+              className={`w-full bg-gray-800 backdrop-blur-md bg-opacity-80 rounded-lg p-5 pr-14 text-white resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 min-h-[120px] max-h-[300px] overflow-y-auto transition-all ${isTyping ? 'border-blue-500' : 'border-transparent'} border-2`}
               placeholder="Describe your video idea in detail..."
               disabled={isLoading}
             />
@@ -64,16 +69,6 @@ function PromptForm({ onSubmit, isLoading, jobId }) {
               )}
             </button>
             
-            {isTyping && (
-              <div className="absolute bottom-3 left-5 flex space-x-2 items-center text-xs text-gray-400">
-                <span className="animate-pulse">AI assistant is listening</span>
-                <span className="flex">
-                  <span className="animate-bounce delay-75">.</span>
-                  <span className="animate-bounce delay-150">.</span>
-                  <span className="animate-bounce delay-300">.</span>
-                </span>
-              </div>
-            )}
           </div>
         </form>
       </div>
