@@ -16,7 +16,7 @@ const newVideo= {
     id: 'video2',
     url: 'https://dash.akamaized.net/akamai/bbb_30fps/bbb_30fps_1920x1080_8000k.mp4',
     title: 'Big Buck Bunny 3',
-}console.log
+}
 
 export function VideoProvider({ children, initial_videos }) {
   const [videos, setVideos] = useState(initial_videos);
