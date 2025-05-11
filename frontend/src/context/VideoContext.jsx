@@ -87,6 +87,9 @@ export function VideoProvider({ children, initial_videos }) {
     }
   }
 
+  if(videos.length > 2){
+    alert("You will only be able to download the first two videos only.");
+  }
 
   console.log("Combined video URL:", videoUrl);  
   try {

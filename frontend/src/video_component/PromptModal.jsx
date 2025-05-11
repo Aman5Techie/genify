@@ -99,7 +99,7 @@ function PromptModal({ isOpen, onClose }) {
                 ref={textareaRef}
                 value={prompt}
                 onChange={handlePromptChange}
-                placeholder="Describe the video you want to generate..."
+                placeholder="Demo only include 2 videos...."
                 className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-md text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent min-h-[120px] max-h-[300px] overflow-y-auto resize-none"
                 required
                 disabled={true}
